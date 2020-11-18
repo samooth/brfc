@@ -1,4 +1,4 @@
-import bsv from 'bsv'
+import { Hash } from 'bsv'
 
 const brfc = (title, authors, version) => {
   const autorString = authors.join(', ').trim()
@@ -8,7 +8,7 @@ const brfc = (title, authors, version) => {
     (version.toString() || '')
   ].join('').trim()
 
-  let hash = bsv.crypto.Hash.sha256sha256(
+  let hash = Hash.sha256Sha256(
     Buffer.from(stringToHash)
   )
   hash = hash.reverse()
