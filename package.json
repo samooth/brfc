@@ -17,7 +17,8 @@
     "build:dev": "rollup -c",
     "build:prod": "NODE_ENV=production yarn build",
     "build:watch": "yarn build -w",
-    "dev": "yarn build:watch"
+    "dev": "yarn build:watch",
+    "cli": "node ./src/cli.js"
   },
   "repository": "https://github.com/moneybutton/yours",
   "author": "Fermatted Drives Limited",
