@@ -1,6 +1,6 @@
 {
   "name": "@moneybutton/brfc",
-  "version": "0.38.4",
+  "version": "0.38.6",
   "description": "Money Button isomorphic brfc implementation.",
   "main": "dist/brfc.cjs.js",
   "module": "dist/brfc.esm.js",
