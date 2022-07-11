@@ -1,4 +1,3 @@
-import babel from 'rollup-plugin-babel'
 import builtins from 'rollup-plugin-node-builtins'
 import commonJS from '@rollup/plugin-commonjs'
 import fs from 'fs'
@@ -29,20 +28,6 @@ export default [
     ],
     plugins: [
       replace(getReplacements()),
-      babel({
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              modules: false,
-              targets: {
-                node: '10'
-              }
-            }
-          ]
-        ],
-        plugins: getBabelPlugins()
-      })
     ]
   },
   ...(PRODUCTION_BUILD ? [{
@@ -67,22 +52,6 @@ export default [
         preferBuiltins: true
       }),
       commonJS(),
-      babel({
-        exclude: ['../../node_modules/**', 'node_modules/**'],
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              modules: false,
-              targets: {
-                browsers: ['> 2%']
-              }
-            }
-          ]
-        ],
-        runtimeHelpers: true,
-        plugins: getBabelPlugins({ includeTransformRuntime: true })
-      }),
       terser({
         sourcemap: true,
         output: {
@@ -106,16 +75,6 @@ function isExternal (candidate) {
 function getBanner () {
   const filePath = path.resolve(__dirname, 'src', 'banner.js')
   return fs.readFileSync(filePath).toString().trim()
-}
-
-function getBabelPlugins (options = {}) {
-  const plugins = [
-    '@babel/plugin-proposal-object-rest-spread'
-  ]
-  if (options.includeTransformRuntime) {
-    plugins.push('@babel/plugin-transform-runtime')
-  }
-  return plugins
 }
 
 function getReplacements () {

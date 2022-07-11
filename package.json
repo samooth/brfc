@@ -10,7 +10,7 @@
     "dist/**"
   ],
   "scripts": {
-    "lint": "standard --parser=babel-eslint",
+    "lint": "standard",
     "test": "mocha",
     "test:ci": "mocha",
     "build": "rollup -c",
@@ -27,18 +27,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/runtime": "7.5.5",
     "bsv": "2.0.7",
     "isomorphic-fetch": "2.2.1",
     "moment": "2.24.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.5.5",
-    "@babel/core": "7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "7.5.5",
-    "@babel/plugin-transform-runtime": "7.5.5",
-    "@babel/polyfill": "7.12.1",
-    "@babel/preset-env": "7.5.5",
     "@rollup/plugin-commonjs": "11.0.1",
     "@rollup/plugin-node-resolve": "7.0.0",
     "@rollup/plugin-replace": "2.3.0",
