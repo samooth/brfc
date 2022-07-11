@@ -1,4 +1,4 @@
-const { Hash } = require('bsv')
+import { Hash } from 'bsv'
 
 const brfc = (title, authors, version) => {
   const autorString = authors.join(', ').trim()
@@ -16,4 +16,4 @@ const brfc = (title, authors, version) => {
   return hash.toString('hex').substring(0, 12)
 }
 
-module.exports = { brfc }
+export { brfc }

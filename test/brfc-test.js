@@ -1,6 +1,6 @@
 /* eslint no-unused-expressions: 0 */
-const { expect } = require('chai')
-const { brfc } = require('../src/index')
+import { expect } from 'chai'
+import { brfc } from '../src/index'
 
 describe('PaymailClient', () => {
   it('creates right value for example 1', () => {
