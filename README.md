@@ -1,72 +1,80 @@
-# @moneybutton/paymail-client
+# BRFC ID generation
 
-## Description
+It is desirable that a BRFC document be uniquely identified. Without a central authority to issue an identification number, we have chosen to borrow inspiration from Bitcoin and use hashes of content.
 
-Javascript client to interact with BSV paymail protocol.
+## ID Construction
 
-## Ussage.
+To construct a BRFC ID from a specification, take the UTF8 string value of the `title`, `author` and `version` metadata fields (omit those not present), trim leading and trailing whitespace (leaving whitespace mid-way through the value), concatenate each value, then reinterpret the string as a byte array, and apply a double SHA256 hash.
 
-``` javascript
-import { PaymailClient, Verifi } from '@moneybutton/paymail-client'
-import fetch from 'isomorphic-fetch'
-import dns from 'dns'
-import PrivKey from 'bsv/lib/priv-key'
+```js
+let hash = sha256d(
+  spec.title.trim() +
+  (spec.author || '').trim() +
+  (spec.version || '').trim()
+);
+```
 
-const client = new PaymailClient(dns, fetch) // Any implementation of fetch can be used.
-const somePaymailAddress = 'some_name@moneybutton.com'
-client.getPublicKey(somePaymailAddress).then(pubkey => {
-  console.log(`Current public key for ${somePaymailAddress} is ${pubkey}`)
-})
+Hex-format the hash as per Bitcoin conventions (usually this means reversing the bytes before converting to hex).
 
-// You can look for someones public identity key.
-const senderPrivateKey = 'L3kZEuaEgdfsV7BXCrwhs8E9BuJaN67HvdkSNTfy3CmKjbXkBEjX'
-client.getOutputFor(somePaymailAddress, {
-    senderHandle: 'sender@moneybutton.com',
-    amount: 10000, // Amount in satoshis
-    senderName: 'Mr. Sender',
-    purpose: 'Pay for your services.',
-    pubkey: '03aa44757af33e7c9c9ceb1d5655741867ef8efea00bbc3f498424c91a16c85779'
-}, senderPrivateKey).then( output => {
-  console.log(`Now I can send money to ${somePaymailAddress} using this output: ${output}`)
-})
+```js
+let bitcoinDisplayHash = hash
+  .reverse()
+  .toString('hex');
+```
 
-// You can also use a previously created signature instead of passing in the private key.
-import { VerifiableMessage } from '@moneybutton/paymail-client'
+Take the first 12 characters of the Bitcoin-style display hash (representing the last six bytes of the underlying `sha256d` value):
 
-const timestamp = new Date().toISOString()
-const preMadeSignature = VerifiableMessage.forBasicAddressResolution({
-  senderHandle: 'sender@moneybutton.com',
-  amount: 10000,
-  dt: timestamp,
-  purpose: 'Pay for your services.'
-}).sign('senderPrivateKey')
+```js
+let brfcId = bitcoinDisplayHash.substring(0, 12);
+```
 
-client.getOutputFor(somePaymailAddress, {
-  senderHandle: 'sender@moneybutton.com',
-  amount: 10000, // Amount in satoshis
-  senderName: 'Mr. Sender',
-  purpose: 'Pay for your services.',
-  pubkey: '03aa44757af33e7c9c9ceb1d5655741867ef8efea00bbc3f498424c91a16c85779',
-  signature: preMadeSignature
-}).then( output => {
-  console.log(`Now I can send money to ${somePaymailAddress} using this output: ${output}`)
-})
+## Considerations
 
-// You can check if a given key belongs to a given paymail
-const somePubKey = PubKey.fromPrivKey(PrivKey.fromRandom()).toString()
-client.verifyPubkeyOwner(somePubKey, 'someuser@moneybutton.com').then(aBoolean => {
-  console.log(`The key ${somePubKey} ${aBoleean ? 'does' : 'doesn\'t'} belongs to someuser@moneybutton.com`)
-})
+Hashing the title, author and version metadata of a specification allows us to generate a unique ID without central authority. Hashing the entire specification was considered, however this was discounted due to the following drawbacks:
 
+* Any change, however minor (like typo fixes) would create an entirely new specification id
+* Different platforms handle line endings differently, and different source control and editor software can replace these without warning. This leads to unstable hashes across seemingly identical documents
+* Some file formats update metadata even when content remains unchanged. Again, this would lead to unstable hashes over otherwise stable content
 
-// Lastly it lets you verify if certain signature is valid for certain paymail address.
-const aMessage = new VerifiableMessage(['very', 'important', 'message'])
-const aSignature = 'some signature for the message'
-client.isValidSignature (aMessage, aSignature, 'someone@moneybutton.com').then( aBoolean => {
-  if (aBoolean) {
-    console.log('the signature is valid, yey!')
-  } else {
-    console.log('the signature is invalid, don\'t trust them')
-  }
-})
+## Test Cases
+
+```yaml
+title: BRFC Specifications
+author: andy (nChain)
+version: 1
+```
+
+Expected BRFC ID: `57dd1f54fc67`
+
+```yaml
+title: bsvalias Payment Addressing (PayTo Protocol Prefix)
+author: andy (nChain)
+version: 1
+```
+
+Expected BRFC ID: `74524c4d6274`
+
+```yaml
+title: bsvalias Integration with Simplified Payment Protocol
+author: andy (nChain)
+version: 1
+```
+
+Expected BRFC ID: `0036f9b8860f`
+
+## Usage
+
+### Command line
+You can use this as a command line tool:
+
+```
+yarn cli "Title" "Author" "Version"
+```
+
+### JS/Node
+
+```js
+const { brfc } = require('@moneybutton/brfc')
+
+console.log(brfc('Title', 'Author', 'Version'))
 ```

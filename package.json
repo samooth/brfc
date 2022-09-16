@@ -1,6 +1,6 @@
 {
   "name": "@moneybutton/brfc",
-  "version": "0.38.7",
+  "version": "0.38.9",
   "description": "Money Button isomorphic brfc implementation.",
   "main": "dist/brfc.cjs.js",
   "module": "dist/brfc.esm.js",
@@ -39,14 +39,13 @@
     "@babel/plugin-transform-runtime": "7.5.5",
     "@babel/polyfill": "7.12.1",
     "@babel/preset-env": "7.5.5",
+    "@babel/register": "^7.18.9",
     "@rollup/plugin-commonjs": "11.0.1",
     "@rollup/plugin-node-resolve": "7.0.0",
     "@rollup/plugin-replace": "2.3.0",
     "babel-eslint": "9.0.0",
     "bdd-lazy-var": "2.5.1",
     "chai": "4.2.0",
-    "dotenv-cli": "2.0.1",
-    "http-server": "0.12.3",
     "mocha": "6.2.3",
     "rollup": "1.29.0",
     "rollup-plugin-babel": "4.3.3",
@@ -66,6 +65,5 @@
     "ignore": [
       "docs/"
     ]
-  },
-  "gitHead": "96f1d3e69bcb9fe4b07c2adecfcaa8880e5889ff"
+  }
 }
