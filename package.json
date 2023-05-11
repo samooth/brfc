@@ -21,7 +21,7 @@
     "dev": "yarn build:watch",
     "cli": "node ./src/cli.js"
   },
-  "repository": "https://github.com/moneybutton/brfc",
+  "repository": "https://github.com/samooth/brfc",
   "author": "Fermatted Drives Limited",
   "license": "Open-BSV",
   "publishConfig": {
