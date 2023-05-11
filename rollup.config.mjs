@@ -5,7 +5,7 @@ import fs from 'fs'
 import globals from 'rollup-plugin-node-globals'
 import { terser } from 'rollup-plugin-terser'
 import path from 'path'
-import pkg from './package.json'
+import pkg from './package.json' assert { type: "json" }
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 
@@ -28,7 +28,7 @@ export default [
       }
     ],
     plugins: [
-      replace(getReplacements()),
+      replace( getReplacements() ),
       babel({
         presets: [
           [
@@ -123,5 +123,6 @@ function getReplacements () {
   for (const key in process.env) {
     replacements[`process.env.${key}`] = JSON.stringify(process.env[key])
   }
+  replacements["preventAssignment"]=true;
   return replacements
 }
