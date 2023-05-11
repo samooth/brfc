@@ -3,7 +3,7 @@
   "version": "0.38.10",
   "description": "Money Button isomorphic brfc implementation.",
   "main": "dist/brfc.cjs.js",
-  "type": "module",
+  "type": "commonjs",
   "module": "dist/brfc.esm.js",
   "unpkg": "dist/brfc.iife.js",
   "library": "brfc",
@@ -11,7 +11,7 @@
     "dist/**"
   ],
   "scripts": {
-    "lint": "standard --parser=babel-eslint",
+    "lint": "standard",
     "test": "mocha",
     "test:ci": "mocha",
     "build": "rollup -c --bundleConfigAsCjs",
