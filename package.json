@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@babel/runtime": "7.21.5",
-    "bsv": "2.0.10",
     "bsv2": "^2.0.13",
     "isomorphic-fetch": "^3.0.0",
     "moment": "^2.29.4"
