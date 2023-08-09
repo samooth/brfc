@@ -1,7 +1,7 @@
 {
-  "name": "@moneybutton/brfc",
+  "name": "@samooth/brfc",
   "version": "0.38.10",
-  "description": "Money Button isomorphic brfc implementation.",
+  "description": "Isomorphic Brfc Implementation.",
   "main": "dist/brfc.cjs.js",
   "type": "commonjs",
   "module": "dist/brfc.esm.js",
@@ -30,6 +30,7 @@
   "dependencies": {
     "@babel/runtime": "7.21.5",
     "bsv": "2.0.10",
+    "bsv2": "^2.0.13",
     "isomorphic-fetch": "^3.0.0",
     "moment": "^2.29.4"
   },
