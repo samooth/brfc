@@ -1,4 +1,4 @@
-import { Hash } from 'bsv'
+import { Hash } from 'bsv2'
 
 const brfc = (title, authors, version) => {
   const autorString = authors.join(', ').trim()
