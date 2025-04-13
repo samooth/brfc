@@ -1,11 +1,11 @@
 {
   "name": "@samooth/brfc",
-  "version": "0.38.10",
+  "version": "0.39.0",
   "description": "Isomorphic Brfc Implementation.",
-  "main": "dist/brfc.cjs.js",
+  "main": "dist/brfc.umd.js",
   "type": "commonjs",
-  "module": "dist/brfc.esm.js",
-  "unpkg": "dist/brfc.iife.js",
+  "module": "dist/brfc.mjs",
+  "unpkg": "dist/brfc.umd.js",
   "library": "brfc",
   "files": [
     "dist/**"
@@ -28,33 +28,18 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/runtime": "7.21.5",
-    "bsv2": "^2.0.13",
+    "bsv2": "^2.1.2",
     "isomorphic-fetch": "^3.0.0",
-    "moment": "^2.29.4"
+    "moment": "^2.30.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.21.5",
-    "@babel/core": "7.21.8",
-    "@babel/plugin-proposal-object-rest-spread": "7.20.7",
-    "@babel/plugin-transform-runtime": "7.21.4",
-    "@babel/polyfill": "7.12.1",
-    "@babel/preset-env": "7.21.5",
-    "@babel/register": "^7.21.0",
-    "@rollup/plugin-commonjs": "24.1.0",
-    "@rollup/plugin-node-resolve": "15.0.2",
-    "@rollup/plugin-replace": "5.0.2",
-    "babel-eslint": "9.0.0",
     "bdd-lazy-var": "^2.6.1",
-    "chai": "4.3.7",
-    "mocha": "^10.2.0",
-    "rollup": "3.21.6",
-    "rollup-plugin-babel": "4.3.3",
-    "rollup-plugin-node-builtins": "^2.0.0",
-    "rollup-plugin-node-globals": "1.4.0",
-    "rollup-plugin-terser": "^5.3.1",
+    "chai": "5.2.0",
+    "mocha": "^11.1.0",
     "should": "13.2.3",
-    "standard": "17.0.0"
+    "standard": "17.1.2",
+    "vite": "^6.2.6",
+    "vite-plugin-node-polyfills": "^0.23.0"
   },
   "standard": {
     "globals": [

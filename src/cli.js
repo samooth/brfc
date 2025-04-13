@@ -1,4 +1,4 @@
-const { brfc } = require('../dist/brfc.cjs')
+const { brfc } = require('../dist/brfc.umd.js')
 
 const opts = process.argv.slice(2)
 
